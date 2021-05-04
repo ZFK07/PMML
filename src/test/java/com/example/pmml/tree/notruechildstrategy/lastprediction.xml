@@ -1,0 +1,62 @@
+<PMML version="4.3"
+      xmlns="http://www.dmg.org/PMML-4_3"
+>
+
+    <Header copyright="KNIME">
+        <Application name="KNIME" version="2.8.0"/>
+    </Header>
+
+    <DataDictionary numberOfFields="2">
+        <DataField name="variable" optype="continuous" dataType="double">
+            <Interval closure="closedClosed" leftMargin="0" rightMargin="2"/>
+        </DataField>
+        <DataField name="response" optype="categorical" dataType="double">
+            <Value value="0"/>
+            <Value value="1"/>
+            <Value value="2"/>
+        </DataField>
+
+    </DataDictionary>
+
+
+    <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit"
+               missingValueStrategy="none" noTrueChildStrategy="returnLastPrediction">
+
+        <MiningSchema>
+            <MiningField name="variable" usageType="active" invalidValueTreatment="asIs"/>
+            <MiningField name="response" usageType="target"/>
+        </MiningSchema>
+
+
+        <Node id="N1" score="0">
+            <True/>
+            <Node id="T1" score="0">
+                <SimplePredicate field="variable" operator="greaterThan" value="0.38"/>
+            </Node>
+            <Node id="T2" score="1">
+                <SimplePredicate field="variable" operator="greaterThan" value="0.33"/>
+                <Node id="T3" score="2">
+                    <SimplePredicate field="variable" operator="equal" value="0.35"/>
+                </Node>
+            </Node>
+        </Node>
+
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="variable"/>
+                <VerificationField field="response"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <variable>0.4</variable>
+                    <response>0</response>
+                </row>
+                <row>
+                    <variable>0.34</variable>
+                    <response>1</response>
+                </row>
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+
+</PMML>

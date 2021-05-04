@@ -1,0 +1,90 @@
+<PMML version="4.3" xmlns="http://www.dmg.org/PMML-4_3">
+    <!-- HEADER INFORMATION   -->
+    <Header copyright="KNIME">
+        <Application name="KNIME" version="2.8.0"/>
+    </Header>
+
+    <!--    DATA DICTIONARY WHAT IS, WHAT!-->
+    <DataDictionary numberOfFields="5">
+        <DataField name="petal_width" optype="continuous" dataType="double">
+            <Interval closure="closedClosed" leftMargin="0.1" rightMargin="2.5"/>
+        </DataField>
+        <DataField name="petal_length" optype="continuous" dataType="double">
+            <Interval closure="closedClosed" leftMargin="0.1" rightMargin="2.5"/>
+        </DataField>
+        <DataField name="class" optype="categorical" dataType="string">
+            <Value value="Iris-setosa"/>
+            <Value value="Iris-versicolor"/>
+            <Value value="Iris-virginica"/>
+            <Value value="Invalid_data"/>
+        </DataField>
+    </DataDictionary>
+
+
+    <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit"
+               missingValueStrategy="weightedConfidence" noTrueChildStrategy="returnNullPrediction">
+        <MiningSchema>
+            <MiningField name="petal_width" usageType="active" invalidValueTreatment="asMissing"/>
+            <MiningField name="petal_length" usageType="active" invalidValueTreatment="asMissing"/>
+            <MiningField name="class" invalidValueTreatment="asIs" usageType="predicted"/>
+        </MiningSchema>
+
+
+        <Node id="0" score="Invalid_data" recordCount="150.0">
+            <True/>
+            <ScoreDistribution value="Iris-setosa" recordCount="50.0"/>
+            <ScoreDistribution value="Iris-versicolor" recordCount="50.0"/>
+            <ScoreDistribution value="Iris-virginica" recordCount="50.0"/>
+
+            <Node id="1" score="Iris-setosa" recordCount="50.0">
+                <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.6"/>
+                <ScoreDistribution value="Iris-setosa" recordCount="50.0"/>
+                <ScoreDistribution value="Iris-versicolor" recordCount="0.0"/>
+                <ScoreDistribution value="Iris-virginica" recordCount="0.0"/>
+            </Node>
+
+
+            <Node id="2" score="Iris-versicolor" recordCount="100.0">
+                <SimplePredicate field="petal_width" operator="greaterThan" value="0.6"/>
+                <ScoreDistribution value="Iris-setosa" recordCount="0.0"/>
+                <ScoreDistribution value="Iris-versicolor" recordCount="50.0"/>
+                <ScoreDistribution value="Iris-virginica" recordCount="50.0"/>
+
+
+                <Node id="3" score="Iris-versicolor" recordCount="54.0">
+                    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.7"/>
+                    <ScoreDistribution value="Iris-setosa" recordCount="0.0"/>
+                    <ScoreDistribution value="Iris-versicolor" recordCount="49.0"/>
+                    <ScoreDistribution value="Iris-virginica" recordCount="5.0"/>
+                </Node>
+
+
+                <Node id="10" score="Iris-virginica" recordCount="46.0">
+                    <SimplePredicate field="petal_width" operator="greaterThan" value="1.7"/>
+                    <ScoreDistribution value="Iris-setosa" recordCount="0.0"/>
+                    <ScoreDistribution value="Iris-versicolor" recordCount="1.0"/>
+                    <ScoreDistribution value="Iris-virginica" recordCount="45.0"/>
+
+                    <Node id="11" score="Iris_setosa" recordCount="500" >
+                        <SimplePredicate field="petal_length" operator="greaterThan" value="0"/>
+                    </Node>
+                </Node>
+            </Node>
+        </Node>
+        <ModelVerification>
+            <!-- VerificationFields element contains the fields that will appear in the verification records.-->
+            <VerificationFields>
+                <VerificationField field="petal_width"/>
+                <VerificationField field="class"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <petal_width>1.8</petal_width>
+                    <class>Iris_setosa</class>
+                </row>
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+
+
+</PMML>
