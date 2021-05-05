@@ -38,7 +38,9 @@
             <MiningField name="petal_width" usageType="active" invalidValueTreatment="asMissing"/>
             <MiningField name="class" invalidValueTreatment="asIs" usageType="predicted"/>
         </MiningSchema>
-
+        <Output>
+            <OutputField name="outputEntityId" dataType="string" feature="entityId"/>
+        </Output>
 
         <Node id="0" score="Invalid_data" recordCount="150.0">
             <True/>
@@ -85,11 +87,15 @@
                 <VerificationField field="petal_length"/>
                 <VerificationField field="petal_width"/>
                 <VerificationField field="class"/>
+                <VerificationField field="outputEntityId"/>
             </VerificationFields>
             <InlineTable>
                 <!--Invalid as missing value is used without replacement method specified-->
                 <row>
                     <class>Invalid_data</class>
+                </row>
+                <row>
+                    <outputEntityId>10</outputEntityId>
                 </row>
             </InlineTable>
         </ModelVerification>

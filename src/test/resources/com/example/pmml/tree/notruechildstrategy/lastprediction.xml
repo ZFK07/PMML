@@ -22,6 +22,7 @@
     <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit"
                missingValueStrategy="none" noTrueChildStrategy="returnLastPrediction">
 
+
         <MiningSchema>
             <MiningField name="variable" usageType="active" invalidValueTreatment="asIs"/>
             <MiningField name="response" usageType="target"/>

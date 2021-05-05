@@ -1,5 +1,6 @@
 package com.example.pmml.tree.missingvaluestrategies;
 
+import com.example.pmml.VerificationHelper;
 import org.jpmml.evaluator.EvaluationException;
 import org.jpmml.evaluator.Evaluator;
 import org.jpmml.evaluator.InvalidResultException;
@@ -25,46 +26,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class MissingValueTests {
-
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisAsIs() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/pmml1.xml")).build();
-                evaluator.verify();
+                VerificationHelper.verify("com/example/pmml/tree/pmml1.xml");
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisReturnInvalid() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/pmml2.xml")).build();
+        void testPmml_INVALIDVALUETREATMENTMETHODisReturnInvalid() {
                 assertThrows(
                         InvalidResultException.class,
-                        evaluator::verify, "Field petal_width cannot accept user input value 0.0");
+                        () -> VerificationHelper.verify("com/example/pmml/tree/pmml2.xml"), "Field petal_width cannot accept user input value 0.0");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingButNoMissingValueReplacementIsSpecified() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/default.xml")).build();
-                assertThrows(EvaluationException.class, evaluator::verify, "No PMML data type for Java data type null");
+                assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/default.xml"));
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsLastPrediction() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/lastpredicate.xml")).build();
-                evaluator.verify();
+
+                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/lastpredicate.xml");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNULL() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/nullpredicate.xml")).build();
-                assertThrows(EvaluationException.class, evaluator::verify, "No PMML data type for Java data type null");
+                assertThrows(EvaluationException.class, ()->VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/nullpredicate.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsDefaultChild() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/defaultchild.xml")).build();
-                evaluator.verify();
+                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/defaultchild.xml");
         }
 
         @Disabled
+//        @Test
 //      Confusion: Attribute with value TreeModel@missingValueStrategy=weightedConfidence is not supported
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsWeightedConfidence() throws JAXBException, SAXException, IOException {
                 Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/weightedconfidence.xml")).build();
@@ -72,7 +68,7 @@ class MissingValueTests {
         }
 
         @Disabled
- //      Confusion: Attribute with value TreeModel@missingValueStrategy=weightedConfidence is not supported
+                //      Confusion: Attribute with value TreeModel@missingValueStrategy=weightedConfidence is not supported
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsaggregateNodes() throws JAXBException, SAXException, IOException {
                 Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/aggregatenodes.xml")).build();
                 evaluator.verify();
@@ -80,14 +76,12 @@ class MissingValueTests {
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/none1.xml")).build();
-                assertThrows(EvaluationException.class, evaluator::verify, "No PMML data type for Java data type null");
+                assertThrows(EvaluationException.class, ()-> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none1.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone2() throws JAXBException, SAXException, IOException {
-                Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/none2.xml")).build();
-                evaluator.verify();
+                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none2.xml");
         }
 
 
@@ -185,24 +179,16 @@ class MissingValueTests {
         }
 
         @Test
-        void testPMML() throws JAXBException, SAXException, IOException {
+        void testPMML() throws IOException {
 
                 URL url = new URL("http://dmg.org/pmml/pmml_examples/KNIME_PMML_4.1_Examples/single_iris_dectree.xml");
                 InputStream is = url.openStream();
-
-                org.jpmml.evaluator.Evaluator evaluator = new LoadingModelEvaluatorBuilder()
-                        .load(is)
-                        .build();
-
-                evaluator.verify();
+                VerificationHelper.verify(is);
         }
 
         @Test
-        void testPMML2() throws JAXBException, SAXException, IOException {
-                org.jpmml.evaluator.Evaluator evaluator = new LoadingModelEvaluatorBuilder()
-                        .load(new File("src/test/java/com/example/pmml/tree/pmml1.xml"))
-                        .build();
-                evaluator.verify();
+        void testPMML2() {
+                VerificationHelper.verify("com/example/pmml/tree/pmml1.xml");
         }
 
 
