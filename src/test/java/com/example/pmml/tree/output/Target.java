@@ -33,7 +33,29 @@ public class Target {
 
         @Test
         void treeModelOutput_feature_predict_invalidCases() {
-                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predictedvalue_invalidcase.xml"), "Values 1001.0 and 1000.0 do not match");
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predictedvalue_invalidcase1.xml"), "Values 1001.0 and 1000.0 do not match");
         }
 
+        @Test
+        void treeModelOutput_feature_predict_invalidCases2() {
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predictedvalue_invalidcase2.xml"));
+        }
+
+        @Test
+        void treeModelOutput_feature_predict_displayValue() {
+                 VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue.xml");
+        }
+        @Test
+        void treeModelOutput_feature_predictdisplayValue_InvalidCases1() {
+                Assertions.assertThrows(EvaluationException.class, () ->  VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase1.xml"));
+        }
+
+        @Test
+        void treeModelOutput_feature_predictdisplayValue_InvalidCases2() {
+                Assertions.assertThrows(EvaluationException.class, () ->  VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase2.xml"));
+        }
+        @Test
+        void treeModelOutput_feature_predictdisplayValue_InvalidCases3() {
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase3.xml"));
+        }
 }
