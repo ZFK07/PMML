@@ -1,0 +1,58 @@
+<PMML version="4.3"
+      xmlns="http://www.dmg.org/PMML-4_3"
+>
+    <Header copyright="ValeBridge Techologies" description="This is simple PMML for calculation of cycle_height value"
+            modelVersion="1">
+    </Header>
+    <DataDictionary>
+        <DataField name="cycle_height" optype="continuous" dataType="double"/>
+        <DataField name="cycle_weight" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <TreeModel functionName="classification" algorithmName="cycle price calculation" missingValueStrategy="none"
+               noTrueChildStrategy="returnLastPrediction">
+
+        <MiningSchema>
+            <MiningField name="cycle_height" usageType="active"/>
+            <MiningField name="cycle_weight" usageType="active"/>
+        </MiningSchema>
+
+        <Output>
+            <OutputField name="cycle_price" dataType="double" feature="predictedValue"/>
+        </Output>
+        <Node id="0" >
+            <True/>
+            <Node id="1" score="2000">
+                <SimplePredicate field="cycle_height" operator="greaterOrEqual" value="3"/>
+                <Node id="2" score="1000">
+                    <SimplePredicate field="cycle_weight" operator="lessOrEqual" value="500"/>
+                </Node>
+            </Node>
+            <Node id="3" score="3000">
+                <SimplePredicate field="cycle_height" operator="lessThan" value="3"/>
+            </Node>
+        </Node>
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="cycle_height"/>
+                <VerificationField field="cycle_weight"/>
+                <VerificationField field="cycle_price"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <cycle_height>3</cycle_height>
+                    <cycle_weight>500</cycle_weight>
+                    <cycle_price>1000</cycle_price>
+                </row>
+                <row>
+                    <cycle_height>2</cycle_height>
+                    <cycle_weight>500</cycle_weight>
+                    <cycle_price>3000</cycle_price>
+                </row>
+
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+
+
+</PMML>
+<!--Confusion: What is difference between predictedvalue and predicteddisplayvalue-->

@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class MissingValueTests {
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisAsIs() throws JAXBException, SAXException, IOException {
-                VerificationHelper.verify("com/example/pmml/tree/pmml1.xml");
+                VerificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisReturnInvalid() {
                 assertThrows(
                         InvalidResultException.class,
-                        () -> VerificationHelper.verify("com/example/pmml/tree/pmml2.xml"), "Field petal_width cannot accept user input value 0.0");
+                        () -> VerificationHelper.verify("com/example/pmml/tree/practice/pmml2.xml"), "Target petal_width cannot accept user input value 0.0");
         }
 
         @Test
@@ -60,15 +60,12 @@ class MissingValueTests {
         }
 
         @Disabled
-//        @Test
-//      Confusion: Attribute with value TreeModel@missingValueStrategy=weightedConfidence is not supported
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsWeightedConfidence() throws JAXBException, SAXException, IOException {
                 Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/weightedconfidence.xml")).build();
                 evaluator.verify();
         }
 
         @Disabled
-                //      Confusion: Attribute with value TreeModel@missingValueStrategy=weightedConfidence is not supported
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsaggregateNodes() throws JAXBException, SAXException, IOException {
                 Evaluator evaluator = new LoadingModelEvaluatorBuilder().load(new File("src/test/java/com/example/pmml/tree/missingvaluestrategies/aggregatenodes.xml")).build();
                 evaluator.verify();
@@ -188,7 +185,7 @@ class MissingValueTests {
 
         @Test
         void testPMML2() {
-                VerificationHelper.verify("com/example/pmml/tree/pmml1.xml");
+                VerificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
         }
 
 

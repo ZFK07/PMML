@@ -1,0 +1,56 @@
+<PMML version="4.3"
+      xmlns="http://www.dmg.org/PMML-4_3"
+>
+    <Header copyright="ValeBridge Techologies" description="This is simple PMML for calculation of cycle_height value"
+            modelVersion="1">
+    </Header>
+    <DataDictionary>
+        <DataField name="cycle_height" optype="continuous" dataType="double"/>
+        <DataField name="cycle_weight" optype="continuous" dataType="double"/>
+        <DataField name="cycle_price" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <TreeModel functionName="classification" algorithmName="cycle price calculation" missingValueStrategy="none"
+               noTrueChildStrategy="returnLastPrediction">
+
+        <MiningSchema>
+            <MiningField name="cycle_height" usageType="active"/>
+            <MiningField name="cycle_weight" usageType="active"/>
+            <MiningField name="cycle_price" usageType="target"/>
+        </MiningSchema>
+
+        <Output>
+            <OutputField name="node" dataType="double" feature="entityId"/>
+        </Output>
+        <Node id="0">
+            <True/>
+            <Node id="1" score="2000">
+                <SimplePredicate field="cycle_height" operator="greaterOrEqual" value="3"/>
+                <Node id="2" score="1000">
+                    <SimplePredicate field="cycle_weight" operator="lessOrEqual" value="500"/>
+                </Node>
+            </Node>
+            <Node id="3" score="3000">
+                <SimplePredicate field="cycle_height" operator="lessThan" value="3"/>
+            </Node>
+        </Node>
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="cycle_height"/>
+                <VerificationField field="cycle_weight"/>
+                <VerificationField field="cycle_price"/>
+                <VerificationField field="node"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <cycle_height>2.9</cycle_height>
+                    <cycle_price>3000</cycle_price>
+                    <node>1</node>
+                </row>
+
+
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+
+
+</PMML>
