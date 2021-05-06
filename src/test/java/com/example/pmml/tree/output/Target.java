@@ -58,4 +58,13 @@ public class Target {
         void treeModelOutput_feature_predictdisplayValue_InvalidCases3() {
                 Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase3.xml"));
         }
+        @Test
+        void treeModelOutput_feature_transformValue() {
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_transformvalue.xml");
+        }
+
+        @Test
+        void treeModelOutput_feature_transformValueWithRounding() {
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_transformvalue_withrounding.xml");
+        }
 }
