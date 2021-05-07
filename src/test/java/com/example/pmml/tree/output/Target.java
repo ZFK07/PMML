@@ -43,21 +43,24 @@ public class Target {
 
         @Test
         void treeModelOutput_feature_predict_displayValue() {
-                 VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue.xml");
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue.xml");
         }
+
         @Test
         void treeModelOutput_feature_predictdisplayValue_InvalidCases1() {
-                Assertions.assertThrows(EvaluationException.class, () ->  VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase1.xml"));
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase1.xml"));
         }
 
         @Test
         void treeModelOutput_feature_predictdisplayValue_InvalidCases2() {
-                Assertions.assertThrows(EvaluationException.class, () ->  VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase2.xml"));
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase2.xml"));
         }
+
         @Test
         void treeModelOutput_feature_predictdisplayValue_InvalidCases3() {
                 Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_predicteddisplayvalue_invalidcase3.xml"));
         }
+
         @Test
         void treeModelOutput_feature_transformValue() {
                 VerificationHelper.verify("com/example/pmml/tree/output/feature_transformvalue.xml");
@@ -76,5 +79,20 @@ public class Target {
         @Test
         void treeModelOutput_feature_probability2() {
                 VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_simple.xml");
+        }
+
+        @Test
+        void treeModelOutput_feature_invalidCase1() {
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_invalidcase1.xml"));
+        }
+
+        @Test
+        void treeModelOutput_feature_invalidCase2() {
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_invalidcase2.xml"));
+        }
+
+        @Test
+        void treeModelOutput_feature_invalidCase3() {
+                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_invalidcase3.xml"));
         }
 }

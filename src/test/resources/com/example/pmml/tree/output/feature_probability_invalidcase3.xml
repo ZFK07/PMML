@@ -1,0 +1,53 @@
+<PMML version="4.3"
+      xmlns="http://www.dmg.org/PMML-4_3"
+>
+    <Header copyright="ValeBridge Technologies" description="This is simple PMML for calculation of cycle_height value"
+            modelVersion="1">
+    </Header>
+    <DataDictionary>
+        <DataField name="first_choice" optype="categorical" dataType="string">
+            <Value value="Red"/>
+            <Value value="Blue"/>
+        </DataField>
+    </DataDictionary>
+    <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit"
+               missingValueStrategy="defaultChild">
+
+        <MiningSchema>
+            <MiningField name="first_choice" usageType="active"/>
+        </MiningSchema>
+
+        <Output>
+            <OutputField name="Probability" optype="continuous" dataType="double" feature="probability"
+            />
+        </Output>
+
+        <Node recordCount="500">
+            <True/>
+            <Node recordCount="100" score="Red">
+                <SimplePredicate field="first_choice" operator="equal" value="Red"/>
+                <ScoreDistribution value="Blue" recordCount="50"/>
+                <ScoreDistribution value="Red" recordCount="50"/>
+            </Node>
+            <Node recordCount="100" score="Blue">
+                <SimplePredicate field="first_choice" operator="equal" value="Blue"/>
+                <ScoreDistribution value="Blue" recordCount="51"/>
+                <ScoreDistribution value="Red" recordCount="5"/>
+            </Node>
+        </Node>
+
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="first_choice"/>
+                <VerificationField field="Probability"/>
+
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <first_choice>Red</first_choice>
+                    <Probability>0.1</Probability>
+                </row>
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+</PMML>
