@@ -67,4 +67,9 @@ public class Target {
         void treeModelOutput_feature_transformValueWithRounding() {
                 VerificationHelper.verify("com/example/pmml/tree/output/feature_transformvalue_withrounding.xml");
         }
+
+        @Test
+        void treeModelOutput_feature_probability() {
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_probability.xml");
+        }
 }

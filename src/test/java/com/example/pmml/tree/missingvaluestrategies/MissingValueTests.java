@@ -39,23 +39,23 @@ class MissingValueTests {
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingButNoMissingValueReplacementIsSpecified() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingButNoMissingValueReplacementIsSpecified() {
                 assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/default.xml"));
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsLastPrediction() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsLastPrediction() {
 
                 VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/lastpredicate.xml");
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNULL() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNULL() {
                 assertThrows(EvaluationException.class, ()->VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/nullpredicate.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsDefaultChild() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsDefaultChild() {
                 VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/defaultchild.xml");
         }
 
@@ -72,12 +72,12 @@ class MissingValueTests {
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone()  {
                 assertThrows(EvaluationException.class, ()-> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none1.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
-        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone2() throws JAXBException, SAXException, IOException {
+        void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone2() {
                 VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none2.xml");
         }
 
@@ -163,7 +163,6 @@ class MissingValueTests {
                         put("petal_length", 1.4);
                         put("petal_width", 0.2);
                 }});
-                System.out.println(r7.toString());
                 assertEquals("Iris-setosa", r7.get("predicted_class"));
                 Map r8 = model.predict(new HashMap<String, Object>() {{
                         put("sepal_length", 7);
@@ -171,7 +170,6 @@ class MissingValueTests {
                         put("petal_length", 4.7);
                         put("petal_width", 1.4);
                 }});
-                System.out.println(r8.toString());
                 assertEquals("Iris-versicolor", r8.get("predicted_class"));
         }
 

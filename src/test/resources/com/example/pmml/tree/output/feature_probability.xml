@@ -1,0 +1,69 @@
+<PMML version="4.3"
+      xmlns="http://www.dmg.org/PMML-4_3"
+>
+    <Header copyright="ValeBridge Technologies" description="This is simple PMML for calculation of cycle_height value"
+            modelVersion="1">
+    </Header>
+    <!--    TODO:Working on it-->
+    <DataDictionary>
+        <DataField name="incomeCategory" optype="categorical" dataType="string">
+            <Value value="high"/>
+            <Value value="rich"/>
+            <Value value="low"/>
+            <Value value="average"/>
+
+        </DataField>
+        <DataField name="monthlyIncome" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit"
+               missingValueStrategy="defaultChild">
+
+        <MiningSchema>
+            <MiningField name="incomeCategory" usageType="target"/>
+            <MiningField name="monthlyIncome" usageType="active"/>
+        </MiningSchema>
+
+        <Output>
+            <OutputField name="Predicted_incomeCategory" optype="categorical" dataType="string"
+                         feature="predictedValue"/>
+            <OutputField name="Probability" optype="continuous" dataType="double" feature="probability"
+                         value="low"/>
+        </Output>
+
+        <Node id="1" score="average" defaultChild="1.1">
+            <True/>
+            <Node id="1.1" score="average" defaultChild="1.1.2">
+                <SimplePredicate field="monthlyIncome" operator="lessThan" value="4000"/>
+                <Node id="1.1.1" score="average">
+                    <SimplePredicate field="monthlyIncome" operator="lessThan" value="2000"/>
+                </Node>
+
+                <Node id="1.1.2" score="average">
+                    <True/>
+                </Node>
+            </Node>
+            <Node id="1.2" score="high" defaultChild="1.2.2">
+                <True/>
+                <Node id="1.2.1" score="rich">
+                    <SimplePredicate field="monthlyIncome" operator="greaterThan" value="10000"/>
+                </Node>
+                <Node id="1.2.2" score="high">
+                    <True/>
+                </Node>
+            </Node>
+        </Node>
+
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="incomeCategory"/>
+                <VerificationField field="monthlyIncome"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <monthlyIncome>1000</monthlyIncome>
+                    <incomeCategory>rich</incomeCategory>
+                </row>
+            </InlineTable>
+        </ModelVerification>
+    </TreeModel>
+</PMML>
