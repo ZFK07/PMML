@@ -4,7 +4,6 @@
     <Header copyright="ValeBridge Technologies" description="This is simple PMML for calculation of cycle_height value"
             modelVersion="1">
     </Header>
-    <!--    TODO:Working on it-->
     <DataDictionary>
         <DataField name="incomeCategory" optype="categorical" dataType="string">
             <Value value="high"/>
@@ -19,36 +18,44 @@
                missingValueStrategy="defaultChild">
 
         <MiningSchema>
-            <MiningField name="incomeCategory" usageType="target"/>
+            <MiningField name="incomeCategory" usageType="active"/>
             <MiningField name="monthlyIncome" usageType="active"/>
         </MiningSchema>
 
         <Output>
-            <OutputField name="Predicted_incomeCategory" optype="categorical" dataType="string"
-                         feature="predictedValue"/>
             <OutputField name="Probability" optype="continuous" dataType="double" feature="probability"
-                         value="low"/>
+            />
         </Output>
 
-        <Node id="1" score="average" defaultChild="1.1">
+        <Node id="1" defaultChild="1.1" recordCount="44">
             <True/>
-            <Node id="1.1" score="average" defaultChild="1.1.2">
+            <ScoreDistribution value="high" recordCount="24"/>
+            <ScoreDistribution value="low" recordCount="20"/>
+            <Node id="1.1" defaultChild="1.1.2">
                 <SimplePredicate field="monthlyIncome" operator="lessThan" value="4000"/>
-                <Node id="1.1.1" score="average">
+                <ScoreDistribution value="high" recordCount="10"/>
+                <ScoreDistribution value="low" recordCount="5"/>
+                <Node id="1.1.1" score="low">
                     <SimplePredicate field="monthlyIncome" operator="lessThan" value="2000"/>
+                    <ScoreDistribution value="low" recordCount="2"/>
+                    <ScoreDistribution value="high" recordCount="20"/>
                 </Node>
 
-                <Node id="1.1.2" score="average">
+                <Node id="1.1.2">
                     <True/>
+                    <ScoreDistribution value="high" recordCount="12"/>
                 </Node>
             </Node>
-            <Node id="1.2" score="high" defaultChild="1.2.2">
+            <Node id="1.2" defaultChild="1.2.2">
                 <True/>
+                <ScoreDistribution value="high" recordCount="12"/>
                 <Node id="1.2.1" score="rich">
                     <SimplePredicate field="monthlyIncome" operator="greaterThan" value="10000"/>
+                    <ScoreDistribution value="high" recordCount="1"/>
                 </Node>
                 <Node id="1.2.2" score="high">
                     <True/>
+                    <ScoreDistribution value="high" recordCount="7"/>
                 </Node>
             </Node>
         </Node>
@@ -57,11 +64,17 @@
             <VerificationFields>
                 <VerificationField field="incomeCategory"/>
                 <VerificationField field="monthlyIncome"/>
+                <VerificationField field="Probability"/>
+
             </VerificationFields>
             <InlineTable>
                 <row>
-                    <monthlyIncome>1000</monthlyIncome>
-                    <incomeCategory>rich</incomeCategory>
+                        <monthlyIncome>1000</monthlyIncome>
+                        <Probability>0.09090909090909091</Probability>
+                </row>
+                <row>
+                        <monthlyIncome>10001</monthlyIncome>
+                        <Probability>0</Probability>
                 </row>
             </InlineTable>
         </ModelVerification>

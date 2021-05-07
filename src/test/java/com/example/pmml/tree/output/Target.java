@@ -70,6 +70,11 @@ public class Target {
 
         @Test
         void treeModelOutput_feature_probability() {
-                VerificationHelper.verify("com/example/pmml/tree/output/feature_probability.xml");
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_complex.xml");
+        }
+
+        @Test
+        void treeModelOutput_feature_probability2() {
+                VerificationHelper.verify("com/example/pmml/tree/output/feature_probability_simple.xml");
         }
 }
