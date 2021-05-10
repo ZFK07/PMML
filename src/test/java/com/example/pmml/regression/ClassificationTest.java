@@ -26,4 +26,28 @@ class ClassificationTest {
         void testPmml_classificationOfJobCategory_InvalidCases_ShouldThrowAnException() {
                 Assertions.assertThrows(EvaluationException.class, ()->VerificationHelper.verify("com/example/pmml/regression_model/classification/classificationOfJobCategory_invalidCase.xml"),"Values skilled and professional do not match");
         }
+
+
+        @Test
+        void testPmml_normalizeMethod_softmax() {
+                VerificationHelper.verify("com/example/pmml/regression_model/classification/normalize_methods/softmax.xml");
+        }
+
+        @Test
+        void testPmml_normalizeMethod_simpleMax() {
+                VerificationHelper.verify("com/example/pmml/regression_model/classification/normalize_methods/simplemax.xml");
+        }
+        @Test
+        void testPmml_normalizeMethod_none() {
+                VerificationHelper.verify("com/example/pmml/regression_model/classification/normalize_methods/none.xml");
+        }
+        @Test
+        void testPmml_normalizeMethod_logit() {
+                VerificationHelper.verify("com/example/pmml/regression_model/classification/normalize_methods/logit.xml");
+        }
+
+        @Test
+        void testPmml_normalizeMethod_cloglog() {
+                VerificationHelper.verify("com/example/pmml/regression_model/classification/normalize_methods/cloglog.xml");
+        }
 }

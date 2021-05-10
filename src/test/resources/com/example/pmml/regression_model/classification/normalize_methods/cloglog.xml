@@ -1,0 +1,57 @@
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header copyright="DMG.org"/>
+    <DataDictionary numberOfFields="4">
+
+        <DataField name="age" optype="continuous" dataType="double"/>
+        <DataField name="salary" optype="continuous" dataType="double"/>
+        <DataField name="car_speed" optype="categorical" dataType="string">
+            <Value value="slow"/>
+            <Value value="medium"/>
+            <Value value="fast"/>
+        </DataField>
+    </DataDictionary>
+
+    <RegressionModel modelName="Sample for linear regression" functionName="classification"
+                     algorithmName="logisticRegression" targetFieldName="car_speed" normalizationMethod="cloglog">
+
+
+        <MiningSchema>
+            <MiningField name="age"/>
+            <MiningField name="salary"/>
+            <MiningField name="car_speed" usageType="target"/>
+        </MiningSchema>
+        <RegressionTable intercept="4.418" targetCategory="slow">
+            <NumericPredictor name="age" exponent="1" coefficient="-0.132"/>
+            <NumericPredictor name="salary" exponent="1" coefficient="71.867E-02"/>
+        </RegressionTable>
+        <RegressionTable intercept="42.418" targetCategory="medium">
+            <NumericPredictor name="age" exponent="1" coefficient="0.132"/>
+            <NumericPredictor name="salary" exponent="1" coefficient="7.867E-02"/>
+        </RegressionTable>
+        <RegressionTable intercept="48.418" targetCategory="fast">
+            <NumericPredictor name="age" exponent="1" coefficient="-6.12"/>
+            <NumericPredictor name="salary" exponent="1" coefficient="7.807E-02"/>
+        </RegressionTable>
+
+
+        <ModelVerification>
+
+            <VerificationFields>
+                <VerificationField field="age"/>
+                <VerificationField field="salary"/>
+                <VerificationField field="car_speed"/>
+            </VerificationFields>
+
+
+            <InlineTable>
+                <row>
+                    <age>0.6</age>
+                    <salary>0.6</salary>
+                    <car_speed>medium</car_speed>
+                </row>
+            </InlineTable>
+
+
+        </ModelVerification>
+    </RegressionModel>
+</PMML>
