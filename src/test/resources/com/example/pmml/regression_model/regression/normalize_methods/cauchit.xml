@@ -9,15 +9,16 @@
         </DataField>
         <DataField name="number_of_claims" optype="continuous" dataType="double"/>
     </DataDictionary>
-<!--  using softmax:  predictedValue = 1/(1+exp(-y1))-->
-    <RegressionModel modelName="Sample for linear regression" functionName="regression" algorithmName="linearRegression" normalizationMethod="cloglog" targetFieldName="number_of_claims">
+    <!--  using softmax:  predictedValue = 1/(1+exp(-y1))-->
+    <RegressionModel modelName="Sample for linear regression" functionName="regression" algorithmName="linearRegression"
+                     normalizationMethod="cauchit" targetFieldName="number_of_claims">
         <MiningSchema>
             <MiningField name="age"/>
             <MiningField name="salary"/>
             <MiningField name="car_location"/>
             <MiningField name="number_of_claims" usageType="target"/>
         </MiningSchema>
-        <RegressionTable   intercept="122.37">
+        <RegressionTable intercept="122.37">
             <NumericPredictor name="age" exponent="1" coefficient="7.1"/>
             <NumericPredictor name="salary" exponent="1" coefficient="0.01"/>
             <CategoricalPredictor name="car_location" value="car_park" coefficient="41.1"/>
