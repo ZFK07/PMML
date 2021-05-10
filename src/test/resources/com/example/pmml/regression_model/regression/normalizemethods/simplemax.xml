@@ -1,0 +1,44 @@
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header copyright="DMG.org"/>
+    <DataDictionary numberOfFields="4">
+        <DataField name="age" optype="continuous" dataType="double"/>
+        <DataField name="salary" optype="continuous" dataType="double"/>
+        <DataField name="car_location" optype="categorical" dataType="string">
+            <Value value="car_park"/>
+            <Value value="street"/>
+        </DataField>
+        <DataField name="number_of_claims" optype="continuous" dataType="double"/>
+    </DataDictionary>
+<!--  using softmax:  predictedValue = 1/(1+exp(-y1))-->
+    <RegressionModel modelName="Sample for linear regression" functionName="regression" algorithmName="linearRegression" normalizationMethod="simplemax" targetFieldName="number_of_claims">
+        <MiningSchema>
+            <MiningField name="age"/>
+            <MiningField name="salary"/>
+            <MiningField name="car_location"/>
+            <MiningField name="number_of_claims" usageType="target"/>
+        </MiningSchema>
+        <RegressionTable   intercept="122.37">
+            <NumericPredictor name="age" exponent="1" coefficient="7.1"/>
+            <NumericPredictor name="salary" exponent="1" coefficient="0.01"/>
+            <CategoricalPredictor name="car_location" value="car_park" coefficient="41.1"/>
+            <CategoricalPredictor name="car_location" value="street" coefficient="325.03"/>
+
+        </RegressionTable>
+        <ModelVerification>
+            <VerificationFields>
+                <VerificationField field="age"/>
+                <VerificationField field="salary"/>
+                <VerificationField field="car_location"/>
+                <VerificationField field="number_of_claims" precision="0.001"/>
+            </VerificationFields>
+            <InlineTable>
+                <row>
+                    <age>0.6</age>
+                    <salary>0.6</salary>
+                    <car_location>street</car_location>
+                    <number_of_claims>1</number_of_claims>
+                </row>
+            </InlineTable>
+        </ModelVerification>
+    </RegressionModel>
+</PMML>
