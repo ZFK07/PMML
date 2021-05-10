@@ -6,12 +6,13 @@
         <DataField name="salary" optype="continuous" dataType="double"/>
         <DataField name="car_speed" optype="categorical" dataType="string">
             <Value value="slow"/>
+            <Value value="medium"/>
             <Value value="fast"/>
         </DataField>
     </DataDictionary>
 
     <RegressionModel modelName="Sample for linear regression" functionName="classification"
-                     algorithmName="logisticRegression" targetFieldName="car_speed" normalizationMethod="cloglog">
+                     algorithmName="logisticRegression" targetFieldName="car_speed" normalizationMethod="probit">
 
 
         <MiningSchema>
@@ -23,7 +24,10 @@
             <NumericPredictor name="age" exponent="1" coefficient="-0.132"/>
             <NumericPredictor name="salary" exponent="1" coefficient="71.867E-02"/>
         </RegressionTable>
-
+        <RegressionTable intercept="42.418" targetCategory="medium">
+            <NumericPredictor name="age" exponent="1" coefficient="0.132"/>
+            <NumericPredictor name="salary" exponent="1" coefficient="7.867E-02"/>
+        </RegressionTable>
         <RegressionTable intercept="48.418" targetCategory="fast">
             <NumericPredictor name="age" exponent="1" coefficient="-6.12"/>
             <NumericPredictor name="salary" exponent="1" coefficient="7.807E-02"/>

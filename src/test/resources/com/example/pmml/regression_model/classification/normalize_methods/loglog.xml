@@ -11,7 +11,7 @@
     </DataDictionary>
 
     <RegressionModel modelName="Sample for linear regression" functionName="classification"
-                     algorithmName="logisticRegression" targetFieldName="car_speed" normalizationMethod="cloglog">
+                     algorithmName="logisticRegression" targetFieldName="car_speed" normalizationMethod="loglog">
 
 
         <MiningSchema>
