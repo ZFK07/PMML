@@ -1,10 +1,12 @@
 package com.example.pmml.tree.missingvaluestrategies;
 
 import com.example.pmml.VerificationHelper;
+import com.example.pmml.VerificationHelperJpmml;
 import org.jpmml.evaluator.EvaluationException;
 import org.jpmml.evaluator.Evaluator;
 import org.jpmml.evaluator.InvalidResultException;
 import org.jpmml.evaluator.LoadingModelEvaluatorBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.pmml4s.common.*;
@@ -26,37 +28,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class MissingValueTests {
+
+
+        VerificationHelper verificationHelper;
+
+        @BeforeEach
+        void setUp() {
+                verificationHelper = new VerificationHelperJpmml();
+        }
+
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisAsIs() throws JAXBException, SAXException, IOException {
-                VerificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
+                verificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisReturnInvalid() {
                 assertThrows(
                         InvalidResultException.class,
-                        () -> VerificationHelper.verify("com/example/pmml/tree/practice/pmml2.xml"), "Target petal_width cannot accept user input value 0.0");
+                        () -> verificationHelper.verify("com/example/pmml/tree/practice/pmml2.xml"), "Target petal_width cannot accept user input value 0.0");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingButNoMissingValueReplacementIsSpecified() {
-                assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/default.xml"));
+                assertThrows(EvaluationException.class, () -> verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/default.xml"));
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsLastPrediction() {
 
-                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/lastpredicate.xml");
+                verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/lastpredicate.xml");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNULL() {
-                assertThrows(EvaluationException.class, ()->VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/nullpredicate.xml"), "No PMML data type for Java data type null");
+                assertThrows(EvaluationException.class, ()-> verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/nullpredicate.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsDefaultChild() {
-                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/defaultchild.xml");
+                verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/defaultchild.xml");
         }
 
         @Disabled
@@ -73,12 +84,12 @@ class MissingValueTests {
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone()  {
-                assertThrows(EvaluationException.class, ()-> VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none1.xml"), "No PMML data type for Java data type null");
+                assertThrows(EvaluationException.class, ()-> verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none1.xml"), "No PMML data type for Java data type null");
         }
 
         @Test
         void testPmml_INVALIDVALUETREATMENTMETHODisasMissingAndMissingValueReplacementIsNone2() {
-                VerificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none2.xml");
+                verificationHelper.verify("com/example/pmml/tree/missingvaluestrategies/none2.xml");
         }
 
 
@@ -178,12 +189,12 @@ class MissingValueTests {
 
                 URL url = new URL("http://dmg.org/pmml/pmml_examples/KNIME_PMML_4.1_Examples/single_iris_dectree.xml");
                 InputStream is = url.openStream();
-                VerificationHelper.verify(is);
+                verificationHelper.verify(is);
         }
 
         @Test
         void testPMML2() {
-                VerificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
+                verificationHelper.verify("com/example/pmml/tree/practice/pmml1.xml");
         }
 
 

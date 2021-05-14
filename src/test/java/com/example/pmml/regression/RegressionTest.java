@@ -1,84 +1,93 @@
 package com.example.pmml.regression;
 
 import com.example.pmml.VerificationHelper;
+import com.example.pmml.VerificationHelperJpmml;
 import org.jpmml.evaluator.EvaluationException;
 import org.jpmml.evaluator.InvalidAttributeException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class RegressionTest {
 
+        VerificationHelper verificationHelper;
+
+        @BeforeEach
+        void setUp() {
+                verificationHelper = new VerificationHelperJpmml();
+        }
+
         @Test
         void testPmml_SimpleLinearRegression() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression.xml");
         }
 
         @Test
         void testPmml_InvalidLinearRegression1_ShouldThrowAnError() {
-                Assertions.assertThrows(EvaluationException.class, () -> VerificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_invalidcase1.xml"));
+                Assertions.assertThrows(EvaluationException.class, () -> verificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_invalidcase1.xml"));
         }
 
         @Test
         void testPmml_validLinearRegression2() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_valid2.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_valid2.xml");
         }
 
         @Test
         void testPmml_InvalidLinearRegression2_ShouldThrowAnError() {
                 Assertions.assertThrows(EvaluationException.class,
-                        () -> VerificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_invalid2.xml"));
+                        () -> verificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_invalid2.xml"));
         }
 
         @Test
         void testPmml_TargetCategory() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_valid2.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/linear_regression/simple_linear_regression_valid2.xml");
         }
 
 
         @Test
         void pmmlWithTargetCategory_SoftMax() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/softmax.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/softmax.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_None() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/none.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/none.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_Logit() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/logit.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/logit.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_simpleMax() {
-                Assertions.assertThrows(InvalidAttributeException.class, () -> VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/simplemax.xml"), "Attribute with value RegressionModel@normalizationMethod=simplemax is not valid");
+                Assertions.assertThrows(InvalidAttributeException.class, () -> verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/simplemax.xml"), "Attribute with value RegressionModel@normalizationMethod=simplemax is not valid");
         }
 
         @Test
         void pmmlWithTargetCategory_probit() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/probit.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/probit.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_cloglog() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/cloglog.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/cloglog.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_exp() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/exp.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/exp.xml");
         }
 
 
         @Test
         void pmmlWithTargetCategory_loglog() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/loglog.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/loglog.xml");
         }
 
         @Test
         void pmmlWithTargetCategory_cauchit() {
-                VerificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/cauchit.xml");
+                verificationHelper.verify("com/example/pmml/regression_model/regression/normalize_methods/cauchit.xml");
         }
 
 
